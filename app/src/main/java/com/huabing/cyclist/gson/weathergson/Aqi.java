@@ -1,0 +1,20 @@
+package com.huabing.cyclist.gson.weathergson;
+
+/**
+ * Created by 30781 on 2017/3/27.
+ */
+
+public class Aqi {
+    public City city;
+    public class City
+    {
+        public String aqi;
+        public String co;
+        public String no2;
+        public String o3;
+        public String pm10;
+        public String pm25;
+        public String qlty;
+        public String so2;
+    }
+}

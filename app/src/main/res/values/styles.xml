@@ -1,0 +1,46 @@
+<resources>
+
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorBlue</item>
+        <item name="colorAccent">@color/colorAccent</item>
+        <item name="actionOverflowMenuStyle">@style/OverflowMenu</item>
+    </style>
+    <!--ChooseActivity的dialog样式-->
+    <style name="translucent" parent="@android:style/Theme.Dialog">
+        <item name="android:windowBackground">@color/colorWhite</item>
+        <item name="android:windowCloseOnTouchOutside">false</item>
+        <item name="android:textColor">@color/colorBlack</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowAnimationStyle">@android:style/Animation.Toast</item>
+    </style>
+    <!--标题栏Menu样式-->
+    <style name="OverflowMenu" parent="Widget.AppCompat.PopupMenu.Overflow">
+        <item name="android:textColor">@android:color/white</item>
+        <item name="overlapAnchor">false</item>
+        <item name="android:popupBackground">@color/colorBlue</item>
+    </style>
+    <!--新闻分割线样式-->
+    <style name="CutLine">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">1.1dp</item>
+        <item name="android:layout_marginTop">1dp</item>
+        <item name="android:layout_marginBottom">1dp</item>
+        <item name="android:layout_marginLeft">4dp</item>
+        <item name="android:layout_marginRight">1dp</item>
+        <item name="android:background">@color/colorGray</item>
+    </style>
+    <!--新闻详情Toolbar样式-->
+    <style name="CustomActionBarTheme" parent="@android:style/Theme.Holo">
+        <item name="android:windowActionBarOverlay">true</item>
+    </style>
+    <!--音乐详情Activity样式-->
+    <style name="MusicDetailAtcivityTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="colorPrimary">@color/colorTransparent</item>
+        <item name="android:windowIsTranslucent">true</item>  <!--将Activity的Theme设置成透明-->
+        <item name="colorAccent">@color/colorLimeGreen</item>
+    </style>
+
+</resources>

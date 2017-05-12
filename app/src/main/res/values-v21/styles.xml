@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="MusicDetailAtcivityTheme" parent="AppTheme">
+        <item name="android:windowIsTranslucent">true</item>  <!--将Activity的Theme设置成透明-->
+        <item name="colorAccent">@color/colorGreen</item>
+        <item name="android:statusBarColor">@android:color/transparent</item>
+    </style>
+</resources>

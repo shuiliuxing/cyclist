@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_record"
+            android:icon="@drawable/nav_history"
+            android:title="行程记录"/>
+        <item
+            android:id="@+id/nav_friend"
+            android:icon="@drawable/nav_friend"
+            android:title="骑友圈"/>
+        <item
+            android:id="@+id/nav_remember"
+            android:icon="@drawable/nav_memo"
+            android:title="备忘录"/>
+        <item
+            android:id="@+id/nav_setting"
+            android:icon="@drawable/nav_setting"
+            android:title="设置"/>
+        <item
+            android:id="@+id/nav_account"
+            android:icon="@drawable/nav_account"
+            android:title="账号管理"/>
+        <item
+            android:id="@+id/nav_help"
+            android:icon="@drawable/nav_help"
+            android:title="帮助与反馈"/>
+
+    </group>
+</menu>

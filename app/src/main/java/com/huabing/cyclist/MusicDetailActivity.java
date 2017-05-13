@@ -19,7 +19,7 @@ import com.bumptech.glide.Glide;
 import com.google.gson.Gson;
 import com.huabing.cyclist.adapter.Music;
 import com.huabing.cyclist.gson.MusicLrc;
-import com.huabing.cyclist.lrcview.LrcView;
+import com.huabing.cyclist.view.lrcview.LrcView;
 import com.huabing.cyclist.util.HttpUtil;
 
 import java.io.ByteArrayInputStream;

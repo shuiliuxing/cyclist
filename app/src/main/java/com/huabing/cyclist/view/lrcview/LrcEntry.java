@@ -1,11 +1,10 @@
-package com.huabing.cyclist.lrcview;
+package com.huabing.cyclist.view.lrcview;
 
 import android.text.Layout;
 import android.text.StaticLayout;
 import android.text.TextPaint;
 import android.text.TextUtils;
 import android.text.format.DateUtils;
-import android.util.Log;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -19,7 +18,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 /**
- * Created by 30781 on 2017/5/9.
+ * Created by 30781 on 2017/5/13.
  */
 
 public class LrcEntry implements Comparable<LrcEntry> {

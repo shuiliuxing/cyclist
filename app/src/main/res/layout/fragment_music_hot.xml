@@ -1,18 +1,22 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context="com.huabing.cyclist.MusicHotFragment">
 
-    <android.support.v4.widget.SwipeRefreshLayout
-        android:id="@+id/srl_refresh"
+    <com.cjj.MaterialRefreshLayout
+        android:id="@+id/mrl_refresh"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        app:overlay="false"
+        app:wave_show="true"
+        app:wave_height_type="higher">
         <android.support.v7.widget.RecyclerView
             android:id="@+id/rv_music_hot"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
         </android.support.v7.widget.RecyclerView>
-    </android.support.v4.widget.SwipeRefreshLayout>
-
-</FrameLayout>
+    </com.cjj.MaterialRefreshLayout>
+</LinearLayout>

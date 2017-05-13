@@ -1,4 +1,4 @@
-package com.huabing.cyclist.lrcview;
+package com.huabing.cyclist.view.lrcview;
 
 import android.animation.ValueAnimator;
 import android.annotation.SuppressLint;
@@ -23,7 +23,7 @@ import java.util.Collections;
 import java.util.List;
 
 /**
- * Created by 30781 on 2017/5/9.
+ * Created by 30781 on 2017/5/13.
  */
 
 public class LrcView extends View {

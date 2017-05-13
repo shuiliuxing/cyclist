@@ -1,11 +1,10 @@
-package com.huabing.cyclist.lrcview;
+package com.huabing.cyclist.view.lrcview;
 
 import android.content.Context;
 
 /**
- * Created by 30781 on 2017/5/9.
+ * Created by 30781 on 2017/5/13.
  */
-
 public class LrcUtils {
     public static int dp2px(Context context, float dpValue) {
         float scale = context.getResources().getDisplayMetrics().density;

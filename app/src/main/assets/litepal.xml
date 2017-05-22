@@ -6,5 +6,6 @@
         <mapping class="com.huabing.cyclist.database.Province" />
         <mapping class="com.huabing.cyclist.database.City" />
         <mapping class="com.huabing.cyclist.database.County" />
+        <mapping class="com.huabing.cyclist.database.Music" />
     </list>
 </litepal>

@@ -107,15 +107,19 @@ public class Utility {
             JSONArray jsonArray=jsonObject.getJSONArray("HeWeather5");
             String content=jsonArray.getJSONObject(0).toString();
             return new Gson().fromJson(content,Weather.class);
-           /* Gson gson=new Gson();
-            Weather weather=gson.fromJson(content,Weather.class);
-            return weather;*/
         }
         catch (Exception e)
         {
             e.printStackTrace();
         }
         return null;
+    }
+
+
+    //解析音乐数据
+    public static Boolean handleMusicResponse(String response)
+    {
+        return true;
     }
 
 }

@@ -60,7 +60,8 @@ public class MusicMenuActivity extends AppCompatActivity {
                     String name = musicMenuBean.getResult().getTracks().get(i).getName();
                     String author = musicMenuBean.getResult().getTracks().get(i).getArtists().get(0).getName();
                     String pic = musicMenuBean.getResult().getTracks().get(i).getAlbum().getPicurl();
-                    String url = musicMenuBean.getResult().getTracks().get(i).getMp3url();
+                    //String url = musicMenuBean.getResult().getTracks().get(i).getMp3url();
+                    String url = "http://link.hhtjim.com/163/"+id+".mp3";
                     Music music = new Music(num, id, name, author, pic, url);
                     musicAll.add(music);
                 }

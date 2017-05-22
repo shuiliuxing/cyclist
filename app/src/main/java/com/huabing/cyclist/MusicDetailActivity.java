@@ -45,14 +45,16 @@ public class MusicDetailActivity extends AppCompatActivity implements View.OnCli
         overridePendingTransition(R.anim.activity_open,0);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_music_detail);
-
+        //获取传入的Music对象
         music=(Music)getIntent().getSerializableExtra("music_data");
+        //标题栏Toolbar
         Toolbar toolbar=(Toolbar)findViewById(R.id.tb_music_toobar);
         setSupportActionBar(toolbar);
         ActionBar actionBar=getSupportActionBar();
         if(actionBar!=null) {
             actionBar.setDisplayHomeAsUpEnabled(true);
         }
+        //加载音乐歌手背景
         CollapsingToolbarLayout ctlCollapsing=(CollapsingToolbarLayout)findViewById(R.id.ctl_collapsing);
         ImageView ivMusicAuthor=(ImageView)findViewById(R.id.iv_music_author);
         ctlCollapsing.setTitle(music.getName());

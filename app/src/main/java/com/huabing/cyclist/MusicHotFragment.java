@@ -61,12 +61,15 @@ public class MusicHotFragment extends Fragment {
         //刷新控件
         mrlRefresh=(MaterialRefreshLayout)view.findViewById(R.id.mrl_refresh);
         mrlRefresh.setLoadMore(true);
-        mrlRefresh.setMaterialRefreshListener(new MaterialRefreshListener() {
+        mrlRefresh.setMaterialRefreshListener(new MaterialRefreshListener()
+        {
             @Override
-            public void onRefresh(MaterialRefreshLayout materialRefreshLayout) {
-                if(!isFirstLoad) {
+            public void onRefresh(MaterialRefreshLayout materialRefreshLayout)
+            {
+                if(isFirstLoad)
+                {
                     UpdateData();
-                    isFirstLoad=true;
+                    isFirstLoad=false;
                 }
                 else
                 {
@@ -87,6 +90,7 @@ public class MusicHotFragment extends Fragment {
     {
         super.onActivityCreated(savedInstanceState);
         //初始时先自动加载20条歌曲数据
+        isFirstLoad=true;
         mrlRefresh.autoRefresh();
     }
 
@@ -116,7 +120,7 @@ public class MusicHotFragment extends Fragment {
                         String name = musicBean.getResult().getTracks().get(i).getName();
                         String author = musicBean.getResult().getTracks().get(i).getArtists().get(0).getName();
                         String pic = musicBean.getResult().getTracks().get(i).getAlbum().getPicurl();
-                        String url = musicBean.getResult().getTracks().get(i).getMp3url();
+                        String url = "http://link.hhtjim.com/163/"+id+".mp3";
                         Music music = new Music(num, id, name, author, pic, url);
                         musicAll.add(music);
                     }

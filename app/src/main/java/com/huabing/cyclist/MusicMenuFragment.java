@@ -56,6 +56,7 @@ public class MusicMenuFragment extends Fragment {
                 "http://music.163.com/api/playlist/detail?id=89908894&updateTime=-1",
                 "http://music.163.com/api/playlist/detail?id=519332769&updateTime=-1",
                 "http://music.163.com/api/playlist/detail?id=55128269&updateTime=-1"};
+        //歌单RecycleView列表
         RecyclerView recyclerView=(RecyclerView)view.findViewById(R.id.rv_music_menu);
         GridLayoutManager manager=new GridLayoutManager(container.getContext(),2);
         recyclerView.setLayoutManager(manager);
@@ -64,6 +65,7 @@ public class MusicMenuFragment extends Fragment {
 
         num=0;
         musicMenuList.clear();
+
         //开启异步加载
         ParseTask parseTask=new ParseTask();
         parseTask.execute(address[0]);
@@ -77,28 +79,8 @@ public class MusicMenuFragment extends Fragment {
         @Override
         protected Boolean doInBackground(String... params)
         {
-            try
-            {
-                OkHttpClient client=new OkHttpClient();
-                Request request=new Request.Builder()
-                                .url(params[0])
-                                .build();
-                Response response=client.newCall(request).execute();
-                String result=response.body().string();
-                Gson gson=new Gson();
-                MusicMenuBean musicMenuBean =gson.fromJson(result,MusicMenuBean.class);
-                int id=musicMenuBean.getResult().getId();
-                String coverImage= musicMenuBean.getResult().getCoverimgurl();
-                int comment= musicMenuBean.getResult().getPlaycount();
-                String name= musicMenuBean.getResult().getName();
-                MusicMenu musicMenu=new MusicMenu(id,coverImage,comment,name);
-                musicMenuList.add(musicMenu);
-            }
-            catch (IOException e)
-            {
-                e.printStackTrace();
-            }
-            return true;
+            //更新歌曲数据
+            return UpdateMenuData(params[0]);
         }
 
         @Override
@@ -106,13 +88,13 @@ public class MusicMenuFragment extends Fragment {
         {
             if(result)
             {
-                num++;
-                if(num>=0&&num<6)
+                if(num>=0&&num<5)
                 {
+                    num++;
                     ParseTask parseTask=new ParseTask();
                     parseTask.execute(address[num]);
                 }
-                else if(num==6)
+                else
                 {
                     tvLoad.setVisibility(View.GONE);
                     adapter.notifyDataSetChanged();
@@ -121,6 +103,35 @@ public class MusicMenuFragment extends Fragment {
             }
         }
     }
+
+    //刷新歌曲数据
+    private boolean UpdateMenuData(String address)
+    {
+        try
+        {
+            OkHttpClient client=new OkHttpClient();
+            Request request=new Request.Builder()
+                    .url(address)
+                    .build();
+            Response response=client.newCall(request).execute();
+            String result=response.body().string();
+            Gson gson=new Gson();
+            MusicMenuBean musicMenuBean =gson.fromJson(result,MusicMenuBean.class);
+            int id=musicMenuBean.getResult().getId();
+            String coverImage= musicMenuBean.getResult().getCoverimgurl();
+            int comment= musicMenuBean.getResult().getPlaycount();
+            String name= musicMenuBean.getResult().getName();
+            MusicMenu musicMenu=new MusicMenu(id,coverImage,comment,name);
+            musicMenuList.add(musicMenu);
+            return true;
+        }
+        catch (IOException e)
+        {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
     @Override
     public void onPause()
     {

@@ -1,12 +1,14 @@
 package com.huabing.cyclist.adapter;
 
+import org.litepal.crud.DataSupport;
+
 import java.io.Serializable;
 
 /**
  * Created by 30781 on 2017/5/7.
  */
 
-public class Music implements Serializable {
+public class Music extends DataSupport implements Serializable {
     private int num;
     private int id;
     private String name;

@@ -1,23 +1,21 @@
-package com.huabing.cyclist.gson.musicmenugson;
+package com.huabing.cyclist.gson.musichotgson;
 
 import com.google.gson.annotations.SerializedName;
 
-import java.util.Date;
 import java.util.List;
 
 /**
- * Created by 30781 on 2017/5/10.
+ * Created by 30781 on 2017/5/7.
  */
 
 public class Tracks {
     private String name;
-    private int id;
+    private long id;
     private int position;
     private List<String> alias;
     private int status;
     private int fee;
-    @SerializedName("copyrightId")
-    private int copyrightid;
+    private int copyrightId;
     private String disc;
     private int no;
     private List<Artists> artists;
@@ -25,42 +23,31 @@ public class Tracks {
     private boolean starred;
     private int popularity;
     private int score;
-    @SerializedName("starredNum")
-    private int starrednum;
+    private int starredNum;
     private int duration;
-    @SerializedName("playedNum")
-    private int playednum;
-    @SerializedName("dayPlays")
-    private int dayplays;
-    @SerializedName("hearTime")
-    private int heartime;
+    private int playedNum;
+    private int dayPlays;
+    private int hearTime;
     private String ringtone;
     private String crbt;
     private String audition;
-    @SerializedName("copyFrom")
-    private String copyfrom;
-    @SerializedName("commentThreadId")
-    private String commentthreadid;
-    @SerializedName("rtUrl")
-    private String rturl;
+    private String copyFrom;
+    private String commentThreadId;
+    private String rtUrl;
     private int ftype;
-    @SerializedName("rtUrls")
-    private List<String> rturls;
-    @SerializedName("bMusic")
-    private Bmusic bmusic;
-    @SerializedName("mp3Url")
-    private String mp3url;
+    private List<String> rtUrls;
+    private int copyright;
+    private int mvid;
+    private BMusic bMusic;
+    private String mp3Url;
     private int rtype;
     private String rurl;
-    private int mvid;
-    @SerializedName("hMusic")
-    private Hmusic hmusic;
-    @SerializedName("mMusic")
-    private Mmusic mmusic;
-    @SerializedName("lMusic")
-    private Lmusic lmusic;
-    @SerializedName("transNames")
-    private List<String> transnames;
+    private HMusic hMusic;
+    private MMusic mMusic;
+    private LMusic lMusic;
+    private int lastRank;
+
+
     public void setName(String name) {
         this.name = name;
     }
@@ -68,10 +55,10 @@ public class Tracks {
         return name;
     }
 
-    public void setId(int id) {
+    public void setId(long id) {
         this.id = id;
     }
-    public int getId() {
+    public long getId() {
         return id;
     }
 
@@ -103,11 +90,11 @@ public class Tracks {
         return fee;
     }
 
-    public void setCopyrightid(int copyrightid) {
-        this.copyrightid = copyrightid;
+    public void setCopyrightId(int copyrightId) {
+        this.copyrightId = copyrightId;
     }
-    public int getCopyrightid() {
-        return copyrightid;
+    public int getCopyrightId() {
+        return copyrightId;
     }
 
     public void setDisc(String disc) {
@@ -159,11 +146,11 @@ public class Tracks {
         return score;
     }
 
-    public void setStarrednum(int starrednum) {
-        this.starrednum = starrednum;
+    public void setStarredNum(int starredNum) {
+        this.starredNum = starredNum;
     }
-    public int getStarrednum() {
-        return starrednum;
+    public int getStarredNum() {
+        return starredNum;
     }
 
     public void setDuration(int duration) {
@@ -173,25 +160,25 @@ public class Tracks {
         return duration;
     }
 
-    public void setPlayednum(int playednum) {
-        this.playednum = playednum;
+    public void setPlayedNum(int playedNum) {
+        this.playedNum = playedNum;
     }
-    public int getPlayednum() {
-        return playednum;
-    }
-
-    public void setDayplays(int dayplays) {
-        this.dayplays = dayplays;
-    }
-    public int getDayplays() {
-        return dayplays;
+    public int getPlayedNum() {
+        return playedNum;
     }
 
-    public void setHeartime(int heartime) {
-        this.heartime = heartime;
+    public void setDayPlays(int dayPlays) {
+        this.dayPlays = dayPlays;
     }
-    public int getHeartime() {
-        return heartime;
+    public int getDayPlays() {
+        return dayPlays;
+    }
+
+    public void setHearTime(int hearTime) {
+        this.hearTime = hearTime;
+    }
+    public int getHearTime() {
+        return hearTime;
     }
 
     public void setRingtone(String ringtone) {
@@ -215,25 +202,25 @@ public class Tracks {
         return audition;
     }
 
-    public void setCopyfrom(String copyfrom) {
-        this.copyfrom = copyfrom;
+    public void setCopyFrom(String copyFrom) {
+        this.copyFrom = copyFrom;
     }
-    public String getCopyfrom() {
-        return copyfrom;
-    }
-
-    public void setCommentthreadid(String commentthreadid) {
-        this.commentthreadid = commentthreadid;
-    }
-    public String getCommentthreadid() {
-        return commentthreadid;
+    public String getCopyFrom() {
+        return copyFrom;
     }
 
-    public void setRturl(String rturl) {
-        this.rturl = rturl;
+    public void setCommentThreadId(String commentThreadId) {
+        this.commentThreadId = commentThreadId;
     }
-    public String getRturl() {
-        return rturl;
+    public String getCommentThreadId() {
+        return commentThreadId;
+    }
+
+    public void setRtUrl(String rtUrl) {
+        this.rtUrl = rtUrl;
+    }
+    public String getRtUrl() {
+        return rtUrl;
     }
 
     public void setFtype(int ftype) {
@@ -243,25 +230,39 @@ public class Tracks {
         return ftype;
     }
 
-    public void setRturls(List<String> rturls) {
-        this.rturls = rturls;
+    public void setRtUrls(List<String> rtUrls) {
+        this.rtUrls = rtUrls;
     }
-    public List<String> getRturls() {
-        return rturls;
-    }
-
-    public void setBmusic(Bmusic bmusic) {
-        this.bmusic = bmusic;
-    }
-    public Bmusic getBmusic() {
-        return bmusic;
+    public List<String> getRtUrls() {
+        return rtUrls;
     }
 
-    public void setMp3url(String mp3url) {
-        this.mp3url = mp3url;
+    public void setCopyright(int copyright) {
+        this.copyright = copyright;
     }
-    public String getMp3url() {
-        return mp3url;
+    public int getCopyright() {
+        return copyright;
+    }
+
+    public void setMvid(int mvid) {
+        this.mvid = mvid;
+    }
+    public int getMvid() {
+        return mvid;
+    }
+
+    public void setBMusic(BMusic bMusic) {
+        this.bMusic = bMusic;
+    }
+    public BMusic getBMusic() {
+        return bMusic;
+    }
+
+    public void setMp3Url(String mp3Url) {
+        this.mp3Url = mp3Url;
+    }
+    public String getMp3Url() {
+        return mp3Url;
     }
 
     public void setRtype(int rtype) {
@@ -278,38 +279,31 @@ public class Tracks {
         return rurl;
     }
 
-    public void setMvid(int mvid) {
-        this.mvid = mvid;
+    public void setHMusic(HMusic hMusic) {
+        this.hMusic = hMusic;
     }
-    public int getMvid() {
-        return mvid;
-    }
-
-    public void setHmusic(Hmusic hmusic) {
-        this.hmusic = hmusic;
-    }
-    public Hmusic getHmusic() {
-        return hmusic;
+    public HMusic getHMusic() {
+        return hMusic;
     }
 
-    public void setMmusic(Mmusic mmusic) {
-        this.mmusic = mmusic;
+    public void setMMusic(MMusic mMusic) {
+        this.mMusic = mMusic;
     }
-    public Mmusic getMmusic() {
-        return mmusic;
-    }
-
-    public void setLmusic(Lmusic lmusic) {
-        this.lmusic = lmusic;
-    }
-    public Lmusic getLmusic() {
-        return lmusic;
+    public MMusic getMMusic() {
+        return mMusic;
     }
 
-    public void setTransnames(List<String> transnames) {
-        this.transnames = transnames;
+    public void setLMusic(LMusic lMusic) {
+        this.lMusic = lMusic;
     }
-    public List<String> getTransnames() {
-        return transnames;
+    public LMusic getLMusic() {
+        return lMusic;
+    }
+
+    public void setLastRank(int lastRank) {
+        this.lastRank = lastRank;
+    }
+    public int getLastRank() {
+        return lastRank;
     }
 }

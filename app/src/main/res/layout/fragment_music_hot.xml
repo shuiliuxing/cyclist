@@ -5,11 +5,19 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context="com.huabing.cyclist.MusicHotFragment">
+    <ProgressBar
+        android:id="@+id/pb_loading"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:layout_gravity="center"
+        android:indeterminateDrawable="@drawable/progressbar_style"/>
 
     <com.cjj.MaterialRefreshLayout
         android:id="@+id/mrl_refresh"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:visibility="gone"
         app:overlay="false"
         app:wave_show="true"
         app:wave_height_type="higher">

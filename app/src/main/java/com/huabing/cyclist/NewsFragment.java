@@ -6,6 +6,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -39,7 +40,7 @@ public class NewsFragment extends Fragment{
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
     {
         View view=inflater.inflate(R.layout.frag_news,container,false);
-        address=new String[]{"http://www.imbiker.cn/hy/?page=1","http://www.imbiker.cn/news/?page=1",
+        address=new String[]{"http://www.imbiker.cn/news/?page=1","http://www.imbiker.cn/hy/?page=1",
                 "http://www.imbiker.cn/pingce/?page=1","http://www.imbiker.cn/zs/?page=1",
                 "http://www.imbiker.cn/race/?page=1","http://www.imbiker.cn/qiji/?page=1"
         };
@@ -114,9 +115,10 @@ public class NewsFragment extends Fragment{
                 String path="http://www.imbiker.cn"+element.attr("href");
                 nextList.add(path);
                 titleList.add(element.attr("title"));
+                Log.e("标题",element.attr("title"));
             }
             //图片
-            Elements imageEles=doc.select("img[src$=c130x90.jpg]");
+            Elements imageEles=doc.select("img[src$=c230x150.jpg]");
             for(Element element:imageEles)
                 imageList.add(element.attr("src"));
             //时间
@@ -125,7 +127,7 @@ public class NewsFragment extends Fragment{
                 timeList.add(element.text());
 
             //所有赋值给newList
-            //newsList.clear();
+            newsList.clear();
             int length=nextList.size();
             for(int i=0;i<length;i++)
             {

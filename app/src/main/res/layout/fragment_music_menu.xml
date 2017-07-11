@@ -3,26 +3,28 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.huabing.cyclist.MusicMenuFragment"
-    android:orientation="vertical">
-    <TextView
-        android:id="@+id/tv_load"
+    tools:context="com.huabing.cyclist.MusicMenuFragment">
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:text="加载中，请稍候......"/>
-    <com.cjj.MaterialRefreshLayout
-        android:id="@+id/mrl_refresh"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        app:overlay="false"
-        app:wave_show="true"
-        app:wave_height_type="higher">
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/rv_music_menu"
+        android:layout_height="match_parent">
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
-        </android.support.v7.widget.RecyclerView>
-    </com.cjj.MaterialRefreshLayout>
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+            <TextView
+                android:id="@+id/tv_load"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="加载中，请稍候......"/>
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/rv_music_menu"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:visibility="gone">
+            </android.support.v7.widget.RecyclerView>
+        </LinearLayout>
+    </ScrollView>
 
 </LinearLayout>

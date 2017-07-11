@@ -5,11 +5,12 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginTop="16dp"
-    android:layout_marginLeft="4dp"
+    android:layout_marginLeft="10dp"
+    android:layout_marginRight="5dp"
     app:cardCornerRadius="4dp"
     app:cardElevation="5dp">
     <ImageView
-        android:id="@+id/iv_menu_background"
+        android:id="@+id/iv_picurl"
         android:layout_width="match_parent"
         android:layout_height="160dp"
         android:scaleType="fitXY"
@@ -30,7 +31,7 @@
                     android:layout_height="22dp"
                     android:src="@drawable/music_earphone" />
                 <TextView
-                    android:id="@+id/tv_menu_comment"
+                    android:id="@+id/tv_hear"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="123456"
@@ -45,10 +46,11 @@
                 android:layout_alignParentRight="true"/>
         </RelativeLayout>
         <TextView
-            android:id="@+id/tv_menu_name"
+            android:id="@+id/tv_name"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="@color/colorWhite"
+            android:gravity="center_vertical"
             android:text="..."
             android:textSize="12sp"/>
     </LinearLayout>

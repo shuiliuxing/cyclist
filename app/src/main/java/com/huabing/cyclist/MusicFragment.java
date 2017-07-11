@@ -37,17 +37,21 @@ public class MusicFragment extends Fragment{
         tlLayout.setTabMode(TabLayout.MODE_FIXED);
         for(String title:titles)
             tlLayout.addTab(tlLayout.newTab().setText(title));
-        tlLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+        tlLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener()
+        {
             @Override
-            public void onTabSelected(TabLayout.Tab tab) {
+            public void onTabSelected(TabLayout.Tab tab)
+            {
                 viewPager.setCurrentItem(tab.getPosition());
             }
             @Override
-            public void onTabUnselected(TabLayout.Tab tab) {
+            public void onTabUnselected(TabLayout.Tab tab)
+            {
 
             }
             @Override
-            public void onTabReselected(TabLayout.Tab tab) {
+            public void onTabReselected(TabLayout.Tab tab)
+            {
 
             }
         });

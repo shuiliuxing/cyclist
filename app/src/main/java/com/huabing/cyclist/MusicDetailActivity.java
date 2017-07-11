@@ -1,6 +1,5 @@
 package com.huabing.cyclist;
 
-import android.content.res.AssetManager;
 import android.media.MediaPlayer;
 import android.os.Handler;
 import android.support.design.widget.CollapsingToolbarLayout;
@@ -8,30 +7,30 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Toast;
-
 import com.bumptech.glide.Glide;
 import com.google.gson.Gson;
-import com.huabing.cyclist.adapter.Music;
-import com.huabing.cyclist.gson.MusicLrc;
+import com.huabing.cyclist.database.MusicHot;
+import com.huabing.cyclist.gson.musiclrcgson.MusicLrcBean;
 import com.huabing.cyclist.view.lrcview.LrcView;
 import com.huabing.cyclist.util.HttpUtil;
 
-import java.io.ByteArrayInputStream;
+import org.litepal.crud.DataSupport;
+
 import java.io.IOException;
-import java.io.InputStream;
+import java.util.List;
 
 import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.Response;
 
 public class MusicDetailActivity extends AppCompatActivity implements View.OnClickListener,MediaPlayer.OnCompletionListener{
-    private Music music;
+    private CollapsingToolbarLayout ctlCollapsing;
+    private ImageView ivMusicAuthor;
+    private MusicHot musicHot;
     private LrcView lvLrc;
     private ImageView ivMusicPre;
     private ImageView ivMusicPlay;
@@ -39,6 +38,7 @@ public class MusicDetailActivity extends AppCompatActivity implements View.OnCli
     private MediaPlayer mediaPlayer=new MediaPlayer();
     private Handler handler=new Handler();
     private String strLrc;
+    private int currentRank;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,7 +46,9 @@ public class MusicDetailActivity extends AppCompatActivity implements View.OnCli
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_music_detail);
         //获取传入的Music对象
-        music=(Music)getIntent().getSerializableExtra("music_data");
+        musicHot=(MusicHot)getIntent().getSerializableExtra("music_data");
+        //当前歌曲序号
+        currentRank=musicHot.getRank();
         //标题栏Toolbar
         Toolbar toolbar=(Toolbar)findViewById(R.id.tb_music_toobar);
         setSupportActionBar(toolbar);
@@ -55,10 +57,10 @@ public class MusicDetailActivity extends AppCompatActivity implements View.OnCli
             actionBar.setDisplayHomeAsUpEnabled(true);
         }
         //加载音乐歌手背景
-        CollapsingToolbarLayout ctlCollapsing=(CollapsingToolbarLayout)findViewById(R.id.ctl_collapsing);
-        ImageView ivMusicAuthor=(ImageView)findViewById(R.id.iv_music_author);
-        ctlCollapsing.setTitle(music.getName());
-        Glide.with(this).load(music.getPic()).into(ivMusicAuthor);
+        ctlCollapsing=(CollapsingToolbarLayout)findViewById(R.id.ctl_collapsing);
+        ivMusicAuthor=(ImageView)findViewById(R.id.iv_music_author);
+        ctlCollapsing.setTitle(musicHot.getName());
+        Glide.with(this).load(musicHot.getPicUrl()).into(ivMusicAuthor);
 
         lvLrc=(LrcView)findViewById(R.id.lv_lrc);
         //播放按钮
@@ -71,10 +73,19 @@ public class MusicDetailActivity extends AppCompatActivity implements View.OnCli
         //MediaPlayer的结束事件
         mediaPlayer.setOnCompletionListener(this);
         //初始化MediaPlayer
+        String songLink=musicHot.getSongLink();
+        String lrcAddress="http://music.163.com/api/song/lyric?os=pc&id="+musicHot.getSongId()+"&lv=-1&kv=-1&tv=-1";
+        resetMediaPlayer(songLink,lrcAddress);
+    }
+
+    //初始化播放器
+    private void resetMediaPlayer(String songLink,String lrcAddress)
+    {
+        ivMusicPlay.setImageResource(R.drawable.music_pause);
         try
         {
             mediaPlayer.reset();
-            mediaPlayer.setDataSource(music.getUrl());
+            mediaPlayer.setDataSource(songLink);
             mediaPlayer.prepare();
         }
         catch (IOException e)
@@ -82,14 +93,13 @@ public class MusicDetailActivity extends AppCompatActivity implements View.OnCli
             e.printStackTrace();
         }
         //获取歌词并用LrvView加载
-        String address="http://music.163.com/api/song/lyric?os=pc&id="+music.getId()+"&lv=-1&kv=-1&tv=-1";
-        HttpUtil.sendOkHttpRequest(address, new Callback() {
+        HttpUtil.sendOkHttpRequest(lrcAddress, new Callback() {
             @Override
             public void onResponse(Call call, Response response) throws IOException {
                 String jsonData=strLrc=response.body().string();
                 Gson gson=new Gson();
-                MusicLrc musicLrc=gson.fromJson(jsonData,MusicLrc.class);
-                strLrc=musicLrc.getLrc().getLyric().toString();
+                MusicLrcBean musicLrcBean=gson.fromJson(jsonData,MusicLrcBean.class);
+                strLrc=musicLrcBean.getLrc().getLyric().toString();
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
@@ -135,6 +145,25 @@ public class MusicDetailActivity extends AppCompatActivity implements View.OnCli
         switch (view.getId())
         {
             case R.id.iv_music_pre:
+                if( currentRank<=1)  //没有前一首
+                {
+                    Toast.makeText(this,"当前已经是第一首！",Toast.LENGTH_SHORT).show();
+                }
+                else  //有前一首
+                {
+                    currentRank--;
+                    List<MusicHot> preMusicHots= DataSupport.where("rank=?",String.valueOf(currentRank)).find(MusicHot.class);
+                    if(preMusicHots.size()>0)  //找到前一首
+                    {
+                        //更新歌曲名、背景
+                        ctlCollapsing.setTitle(preMusicHots.get(0).getName());
+                        Glide.with(this).load(preMusicHots.get(0).getPicUrl()).into(ivMusicAuthor);
+                        //更新歌曲链接、更新歌词
+                        String songLink=preMusicHots.get(0).getSongLink();
+                        String lrcAddress="http://music.163.com/api/song/lyric?os=pc&id="+preMusicHots.get(0).getSongId()+"&lv=-1&kv=-1&tv=-1";
+                        resetMediaPlayer(songLink,lrcAddress);
+                    }
+                }
                 break;
             case R.id.iv_music_play:
                 if(!mediaPlayer.isPlaying())
@@ -151,6 +180,25 @@ public class MusicDetailActivity extends AppCompatActivity implements View.OnCli
                 }
                 break;
             case R.id.iv_music_next:
+                if( currentRank>=150)  //没有前一首
+                {
+                    Toast.makeText(this,"当前已经是最后一首！",Toast.LENGTH_SHORT).show();
+                }
+                else  //有前一首
+                {
+                    currentRank++;
+                    List<MusicHot> preMusicHots= DataSupport.where("rank=?",String.valueOf(currentRank)).find(MusicHot.class);
+                    if(preMusicHots.size()>0)  //找到前一首
+                    {
+                        //更新歌曲名、背景
+                        ctlCollapsing.setTitle(preMusicHots.get(0).getName());
+                        Glide.with(this).load(preMusicHots.get(0).getPicUrl()).into(ivMusicAuthor);
+                        //更新歌曲链接、更新歌词
+                        String songLink=preMusicHots.get(0).getSongLink();
+                        String lrcAddress="http://music.163.com/api/song/lyric?os=pc&id="+preMusicHots.get(0).getSongId()+"&lv=-1&kv=-1&tv=-1";
+                        resetMediaPlayer(songLink,lrcAddress);
+                    }
+                }
                 break;
             default:
                 break;

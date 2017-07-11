@@ -1,14 +1,10 @@
-package com.huabing.cyclist.gson;
-
-import com.huabing.cyclist.gson.musiclrcgson.Klyric;
-import com.huabing.cyclist.gson.musiclrcgson.Lrc;
-import com.huabing.cyclist.gson.musiclrcgson.Tlyric;
+package com.huabing.cyclist.gson.musiclrcgson;
 
 /**
- * Created by 30781 on 2017/5/9.
+ * Created by 30781 on 2017/7/11.
  */
 
-public class MusicLrc {
+public class MusicLrcBean {
     private boolean sgc;
     private boolean sfy;
     private boolean qfy;

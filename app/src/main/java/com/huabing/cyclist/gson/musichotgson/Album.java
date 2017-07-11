@@ -1,45 +1,37 @@
-package com.huabing.cyclist.gson.musicmenugson;
+package com.huabing.cyclist.gson.musichotgson;
 
 import com.google.gson.annotations.SerializedName;
 
 import java.util.List;
 
 /**
- * Created by 30781 on 2017/5/10.
+ * Created by 30781 on 2017/5/7.
  */
 
 public class Album {
     private String name;
-    private int id;
+    private long id;
     private String type;
     private int size;
-    @SerializedName("picId")
-    private long picid;
-    @SerializedName("blurPicUrl")
-    private String blurpicurl;
-    @SerializedName("companyId")
-    private int companyid;
+    private long picId;
+    private String blurPicUrl;
+    private int companyId;
     private long pic;
-    @SerializedName("picUrl")
-    private String picurl;
-    @SerializedName("publishTime")
-    private long publishtime;
+    private String picUrl;
+    private long publishTime;
     private String description;
     private String tags;
     private String company;
-    @SerializedName("briefDesc")
-    private String briefdesc;
+    private String briefDesc;
     private Artist artist;
     private List<String> songs;
     private List<String> alias;
     private int status;
-    @SerializedName("copyrightId")
-    private int copyrightid;
-    @SerializedName("commentThreadId")
-    private String commentthreadid;
+    private int copyrightId;
+    private String commentThreadId;
     private List<Artists> artists;
-    @SerializedName("transNames")
-    private List<String> transnames;
+    private String subType;
+    private String picId_str;
     public void setName(String name) {
         this.name = name;
     }
@@ -47,10 +39,10 @@ public class Album {
         return name;
     }
 
-    public void setId(int id) {
+    public void setId(long id) {
         this.id = id;
     }
-    public int getId() {
+    public long getId() {
         return id;
     }
 
@@ -68,25 +60,25 @@ public class Album {
         return size;
     }
 
-    public void setPicid(long picid) {
-        this.picid = picid;
+    public void setPicId(long picId) {
+        this.picId = picId;
     }
-    public long getPicid() {
-        return picid;
-    }
-
-    public void setBlurpicurl(String blurpicurl) {
-        this.blurpicurl = blurpicurl;
-    }
-    public String getBlurpicurl() {
-        return blurpicurl;
+    public long getPicId() {
+        return picId;
     }
 
-    public void setCompanyid(int companyid) {
-        this.companyid = companyid;
+    public void setBlurPicUrl(String blurPicUrl) {
+        this.blurPicUrl = blurPicUrl;
     }
-    public int getCompanyid() {
-        return companyid;
+    public String getBlurPicUrl() {
+        return blurPicUrl;
+    }
+
+    public void setCompanyId(int companyId) {
+        this.companyId = companyId;
+    }
+    public int getCompanyId() {
+        return companyId;
     }
 
     public void setPic(long pic) {
@@ -96,18 +88,18 @@ public class Album {
         return pic;
     }
 
-    public void setPicurl(String picurl) {
-        this.picurl = picurl;
+    public void setPicUrl(String picUrl) {
+        this.picUrl = picUrl;
     }
-    public String getPicurl() {
-        return picurl;
+    public String getPicUrl() {
+        return picUrl;
     }
 
-    public void setPublishtime(long publishtime) {
-        this.publishtime = publishtime;
+    public void setPublishTime(long publishTime) {
+        this.publishTime = publishTime;
     }
-    public long getPublishtime() {
-        return publishtime;
+    public long getPublishTime() {
+        return publishTime;
     }
 
     public void setDescription(String description) {
@@ -131,11 +123,11 @@ public class Album {
         return company;
     }
 
-    public void setBriefdesc(String briefdesc) {
-        this.briefdesc = briefdesc;
+    public void setBriefDesc(String briefDesc) {
+        this.briefDesc = briefDesc;
     }
-    public String getBriefdesc() {
-        return briefdesc;
+    public String getBriefDesc() {
+        return briefDesc;
     }
 
     public void setArtist(Artist artist) {
@@ -166,18 +158,18 @@ public class Album {
         return status;
     }
 
-    public void setCopyrightid(int copyrightid) {
-        this.copyrightid = copyrightid;
+    public void setCopyrightId(int copyrightId) {
+        this.copyrightId = copyrightId;
     }
-    public int getCopyrightid() {
-        return copyrightid;
+    public int getCopyrightId() {
+        return copyrightId;
     }
 
-    public void setCommentthreadid(String commentthreadid) {
-        this.commentthreadid = commentthreadid;
+    public void setCommentThreadId(String commentThreadId) {
+        this.commentThreadId = commentThreadId;
     }
-    public String getCommentthreadid() {
-        return commentthreadid;
+    public String getCommentThreadId() {
+        return commentThreadId;
     }
 
     public void setArtists(List<Artists> artists) {
@@ -187,10 +179,17 @@ public class Album {
         return artists;
     }
 
-    public void setTransnames(List<String> transnames) {
-        this.transnames = transnames;
+    public void setSubType(String subType) {
+        this.subType = subType;
     }
-    public List<String> getTransnames() {
-        return transnames;
+    public String getSubType() {
+        return subType;
+    }
+
+    public void setPicId_str(String picId_str) {
+        this.picId_str = picId_str;
+    }
+    public String getPicId_str() {
+        return picId_str;
     }
 }

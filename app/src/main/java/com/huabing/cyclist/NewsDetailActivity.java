@@ -13,6 +13,16 @@ import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.LinearLayout;
+import android.widget.TextView;
+import android.widget.Toast;
+
+import com.huabing.cyclist.util.HttpUtil;
+
+import java.io.IOException;
+
+import okhttp3.Call;
+import okhttp3.Callback;
+import okhttp3.Response;
 
 public class NewsDetailActivity extends AppCompatActivity {
 
@@ -22,6 +32,8 @@ public class NewsDetailActivity extends AppCompatActivity {
     private WebSettings wvSetting;
     ProgressDialog dialog;
     private String str;
+
+    private TextView tvContent;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,7 +47,7 @@ public class NewsDetailActivity extends AppCompatActivity {
             actionBar.setDisplayHomeAsUpEnabled(true);
             actionBar.setHomeAsUpIndicator(R.drawable.ic_back);
         }
-
+        tvContent=(TextView)findViewById(R.id.tv_content);
         llWebview=(LinearLayout)findViewById(R.id.llWebview);
 
         dialog=new ProgressDialog(NewsDetailActivity.this);
@@ -48,7 +60,7 @@ public class NewsDetailActivity extends AppCompatActivity {
         str="JavaScript:function setTop(){document.getElementById('mm-0').style.display='none';" +
                 "document.getElementById('indexHeader').style.display='none';" +
                 "document.getElementsByClassName('art_main boxs')[0].style.marginTop='0.5px';" +
-                "document.getElementsByClassName('adsbygoogle')[0].style.display='none';" +
+                /*"document.getElementsByClassName('adsbygoogle')[0].style.display='none';" +
                 "document.getElementById('_slideTxtBox').style.display='none';" +
                 "document.querySelector('img[width=\"10px\"]').style.display='none';" +
                 "document.getElementsByTagName('h3')[0].style.display='none';" +
@@ -56,7 +68,8 @@ public class NewsDetailActivity extends AppCompatActivity {
                 "document.querySelector('img[height=\"110px\"]').style.display='none';" +
                 "document.getElementById('commt').style.display='none';" +
                 "document.getElementById('wheel_avatar').style.display='none';" +
-                "var ride=document.getElementsByClassName('about_link clearfix')[0];if(ride!=null) ride.style.display='none';" +
+                "var ride=document.getElementsByClassName('about_link clearfix')[0];" +
+                "if(ride!=null) ride.style.display='none';" +*/
                 "document.getElementById('_slideTxtBox').style.display='none';window.control.showWebview();}setTop()";
         wvDetail=new WebView(this);
         wvDetail.setLayoutParams(new LinearLayout.LayoutParams(
@@ -89,6 +102,24 @@ public class NewsDetailActivity extends AppCompatActivity {
             public void onPageFinished(WebView view, String url)
             {
                 view.loadUrl(str);
+            }
+        });
+        HttpUtil.sendOkHttpRequest("http://10.0.2.2:8080/Two/file.json", new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+
+            }
+
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                String str=response.body().string();
+                final String s2 = new String(str.getBytes("ISO-8859-1"),"UTF-8");
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        tvContent.setText(s2);
+                    }
+                });
             }
         });
     }

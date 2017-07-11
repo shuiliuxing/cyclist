@@ -61,7 +61,7 @@
         <activity
             android:name=".MusicDetailActivity"
             android:theme="@style/MusicDetailAtcivityTheme" />
-        <activity android:name=".MusicMenuActivity"></activity>
+        <activity android:name=".MusicActivity"></activity>
     </application>
 
 </manifest>

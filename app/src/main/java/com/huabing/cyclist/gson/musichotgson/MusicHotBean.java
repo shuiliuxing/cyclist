@@ -1,12 +1,10 @@
-package com.huabing.cyclist.gson;
-
-import com.huabing.cyclist.gson.musicmenugson.Result;
+package com.huabing.cyclist.gson.musichotgson;
 
 /**
- * Created by 30781 on 2017/5/10.
+ * Created by 30781 on 2017/7/9.
  */
 
-public class MusicMenuBean {
+public class MusicHotBean {
     private Result result;
     private int code;
     public void setResult(Result result) {

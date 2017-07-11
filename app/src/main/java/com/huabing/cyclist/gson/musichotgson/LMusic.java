@@ -1,4 +1,4 @@
-package com.huabing.cyclist.gson.musiclistgson;
+package com.huabing.cyclist.gson.musichotgson;
 
 import com.google.gson.annotations.SerializedName;
 
@@ -6,19 +6,16 @@ import com.google.gson.annotations.SerializedName;
  * Created by 30781 on 2017/5/7.
  */
 
-public class Mmusic {
+public class LMusic {
     private String name;
     private int id;
     private int size;
     private String extension;
     private int sr;
-    @SerializedName("dfsId")
-    private long dfsid;
+    private int dfsId;
     private int bitrate;
-    @SerializedName("playTime")
-    private int playtime;
-    @SerializedName("volumeDelta")
-    private double volumedelta;
+    private int playTime;
+    private double volumeDelta;
     public void setName(String name) {
         this.name = name;
     }
@@ -54,11 +51,11 @@ public class Mmusic {
         return sr;
     }
 
-    public void setDfsid(long dfsid) {
-        this.dfsid = dfsid;
+    public void setDfsId(int dfsId) {
+        this.dfsId = dfsId;
     }
-    public long getDfsid() {
-        return dfsid;
+    public int getDfsId() {
+        return dfsId;
     }
 
     public void setBitrate(int bitrate) {
@@ -68,17 +65,17 @@ public class Mmusic {
         return bitrate;
     }
 
-    public void setPlaytime(int playtime) {
-        this.playtime = playtime;
+    public void setPlayTime(int playTime) {
+        this.playTime = playTime;
     }
-    public int getPlaytime() {
-        return playtime;
+    public int getPlayTime() {
+        return playTime;
     }
 
-    public void setVolumedelta(double volumedelta) {
-        this.volumedelta = volumedelta;
+    public void setVolumeDelta(double volumeDelta) {
+        this.volumeDelta = volumeDelta;
     }
-    public double getVolumedelta() {
-        return volumedelta;
+    public double getVolumeDelta() {
+        return volumeDelta;
     }
 }

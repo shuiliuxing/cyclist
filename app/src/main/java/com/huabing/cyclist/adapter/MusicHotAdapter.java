@@ -10,21 +10,19 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
-import com.huabing.cyclist.MusicActivity;
 import com.huabing.cyclist.MusicDetailActivity;
 import com.huabing.cyclist.R;
-import com.huabing.cyclist.bean.Music;
 import com.huabing.cyclist.database.MusicHot;
 
 import java.util.List;
 
 /**
- * Created by 30781 on 2017/7/10.
+ * Created by 30781 on 2017/5/7.
  */
 
-public class MusicAdapter extends RecyclerView.Adapter<MusicAdapter.ViewHolder>{
+public class MusicHotAdapter extends RecyclerView.Adapter<MusicHotAdapter.ViewHolder>{
     private Context mContext;
-    private List<MusicHot> musicList;
+    private List<MusicHot> musicHotList;
 
     static class ViewHolder extends RecyclerView.ViewHolder
     {
@@ -44,25 +42,26 @@ public class MusicAdapter extends RecyclerView.Adapter<MusicAdapter.ViewHolder>{
         }
     }
 
-    public MusicAdapter(List<MusicHot> musicHotList)
+    public MusicHotAdapter(List<MusicHot> musicHotList)
     {
-        this.musicList=musicHotList;
+        this.musicHotList=musicHotList;
     }
 
     @Override
-    public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType)
+    public ViewHolder onCreateViewHolder(ViewGroup parent,int viewType)
     {
         mContext=parent.getContext();
-        View view= LayoutInflater.from(mContext).inflate(R.layout.adapter_music_item,parent,false);
+        View view= LayoutInflater.from(mContext).inflate(R.layout.adapter_music_hot_item,parent,false);
         final ViewHolder holder=new ViewHolder(view);
         holder.viewMusic.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 int position=holder.getAdapterPosition();
-                MusicHot music=musicList.get(position);
-                Intent intent=new Intent(mContext, MusicDetailActivity.class);
-                intent.putExtra("music_data",music);
-                mContext.startActivity(intent);
+                MusicHot musicHot=musicHotList.get(position);
+                Context context=v.getContext();
+                Intent intent=new Intent(context, MusicDetailActivity.class);
+                intent.putExtra("music_data",musicHot);
+                context.startActivity(intent);
             }
         });
         return holder;
@@ -71,16 +70,16 @@ public class MusicAdapter extends RecyclerView.Adapter<MusicAdapter.ViewHolder>{
     @Override
     public void onBindViewHolder(ViewHolder holder,int position)
     {
-        MusicHot music=musicList.get(position);
-        holder.tvRank.setText(""+music.getRank());
-        holder.tvName.setText(music.getName());
-        holder.tvMusicAuthor.setText(music.getAuthor());
-        Glide.with(mContext).load(music.getPicUrl()).into(holder.ivPicUrl);
+        MusicHot musicHot=musicHotList.get(position);
+        holder.tvRank.setText(""+musicHot.getRank());
+        holder.tvName.setText(musicHot.getName());
+        holder.tvMusicAuthor.setText(musicHot.getAuthor());
+        Glide.with(mContext).load(musicHot.getPicUrl()).into(holder.ivPicUrl);
     }
 
     @Override
     public int getItemCount()
     {
-        return musicList.size();
+        return musicHotList.size();
     }
 }

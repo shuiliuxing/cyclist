@@ -61,6 +61,10 @@
         <activity
             android:name=".MusicDetailActivity"
             android:theme="@style/MusicDetailAtcivityTheme" />
+        <service
+            android:name=".service.DownloadService"
+            android:enabled="true"
+            android:exported="true"/>
         <activity android:name=".MusicActivity"></activity>
     </application>
 

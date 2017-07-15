@@ -140,8 +140,6 @@ public class MusicHotFragment extends Fragment{
                     }
                 });
 
-
-                Log.e("结果","已解析，长度为"+length);
             }
             @Override
             public void onFailure(Call call, IOException e) {

@@ -1,20 +1,34 @@
 package com.huabing.cyclist;
 
+import android.Manifest;
+import android.content.ComponentName;
+import android.content.Intent;
+import android.content.ServiceConnection;
+import android.content.pm.PackageManager;
 import android.media.MediaPlayer;
+import android.os.Environment;
 import android.os.Handler;
+import android.os.IBinder;
 import android.support.design.widget.CollapsingToolbarLayout;
+import android.support.design.widget.FloatingActionButton;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.Toast;
 import com.bumptech.glide.Glide;
 import com.google.gson.Gson;
+import com.huabing.cyclist.bean.DownloadListener;
+import com.huabing.cyclist.bean.DownloadTask;
 import com.huabing.cyclist.database.MusicHot;
 import com.huabing.cyclist.gson.musiclrcgson.MusicLrcBean;
+import com.huabing.cyclist.service.DownloadService;
 import com.huabing.cyclist.view.lrcview.LrcView;
 import com.huabing.cyclist.util.HttpUtil;
 
@@ -35,6 +49,7 @@ public class MusicDetailActivity extends AppCompatActivity implements View.OnCli
     private ImageView ivMusicPre;
     private ImageView ivMusicPlay;
     private ImageView ivMusicNext;
+    private FloatingActionButton fabDownload;
     private MediaPlayer mediaPlayer=new MediaPlayer();
     private Handler handler=new Handler();
     private String strLrc;
@@ -61,6 +76,10 @@ public class MusicDetailActivity extends AppCompatActivity implements View.OnCli
         ivMusicAuthor=(ImageView)findViewById(R.id.iv_music_author);
         ctlCollapsing.setTitle(musicHot.getName());
         Glide.with(this).load(musicHot.getPicUrl()).into(ivMusicAuthor);
+
+        //下载按钮
+        fabDownload=(FloatingActionButton)findViewById(R.id.fab_download);
+        fabDownload.setOnClickListener(this);
 
         lvLrc=(LrcView)findViewById(R.id.lv_lrc);
         //播放按钮
@@ -113,7 +132,22 @@ public class MusicDetailActivity extends AppCompatActivity implements View.OnCli
             public void onFailure(Call call, IOException e) {
             }
         });
+
+
+        //开启下载音乐服务
+        Intent intent=new Intent(this,DownloadService.class);
+        startService(intent);
+        //绑定服务
+        bindService(intent,connection,BIND_AUTO_CREATE);
+        //检查权限(若没有，则申请)
+        if(ContextCompat.checkSelfPermission(MusicDetailActivity.this, Manifest.permission.WRITE_EXTERNAL_STORAGE)!=
+                PackageManager.PERMISSION_GRANTED)
+        {
+            ActivityCompat.requestPermissions(MusicDetailActivity.this,new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE},1);
+        }
     }
+
+
 
     //随播放进度更新歌词
     private Runnable runnable=new Runnable() {
@@ -138,12 +172,32 @@ public class MusicDetailActivity extends AppCompatActivity implements View.OnCli
         ivMusicPlay.setImageResource(R.drawable.music_pause);
     }
 
+    /*
+        音乐下载
+     */
+    //DownloadService中的Binder
+    private DownloadService.DownloadBinder downloadBinder;
+    //要绑定服务的连接(其实里面就是获取DownloadService中的Binder)
+    private ServiceConnection connection=new ServiceConnection()
+    {
+        @Override
+        public void onServiceConnected(ComponentName name, IBinder service)
+        {
+            downloadBinder=(DownloadService.DownloadBinder)service;
+        }
+        @Override
+        public void onServiceDisconnected(ComponentName name)
+        {
+        }
+    };
+
 
     @Override
     public void onClick(View view)
     {
         switch (view.getId())
         {
+            //上一首
             case R.id.iv_music_pre:
                 if( currentRank<=1)  //没有前一首
                 {
@@ -165,6 +219,7 @@ public class MusicDetailActivity extends AppCompatActivity implements View.OnCli
                     }
                 }
                 break;
+            //播放、暂停
             case R.id.iv_music_play:
                 if(!mediaPlayer.isPlaying())
                 {
@@ -179,6 +234,7 @@ public class MusicDetailActivity extends AppCompatActivity implements View.OnCli
                     handler.removeCallbacks(runnable);
                 }
                 break;
+            //下一首
             case R.id.iv_music_next:
                 if( currentRank>=150)  //没有前一首
                 {
@@ -200,11 +256,22 @@ public class MusicDetailActivity extends AppCompatActivity implements View.OnCli
                     }
                 }
                 break;
+            //下载音乐
+            case R.id.fab_download:
+                //音乐下载地址
+                String address=musicHot.getSongLink();
+                Log.e("连接",address);
+                if(address!=null) {
+                    //通过DownloadBinder调用下载服务中的Binder开启下载
+                    downloadBinder.startDownload(address);
+                }
+                break;
             default:
                 break;
         }
     }
 
+    //标题栏返回键
     @Override
     public boolean onOptionsItemSelected(MenuItem item)
     {
@@ -217,6 +284,24 @@ public class MusicDetailActivity extends AppCompatActivity implements View.OnCli
         return super.onOptionsItemSelected(item);
     }
 
+    //申请权限
+    @Override
+    public void onRequestPermissionsResult(int requestCode,String[] permissions,int[] grantResults)
+    {
+        switch(requestCode)
+        {
+            case 1:
+                if(grantResults.length>0 && grantResults[0]!=PackageManager.PERMISSION_GRANTED)
+                {
+                    Toast.makeText(this,"拒绝权限将无法下载！",Toast.LENGTH_SHORT).show();
+                }
+                break;
+            default:
+                break;
+        }
+    }
+
+    //关闭Activity动画
     @Override
     public void finish()
     {
@@ -233,6 +318,9 @@ public class MusicDetailActivity extends AppCompatActivity implements View.OnCli
         mediaPlayer.reset();
         mediaPlayer.release();
         mediaPlayer=null;
+
+        //解绑下载服务
+        unbindService(connection);
         super.onDestroy();
     }
 }

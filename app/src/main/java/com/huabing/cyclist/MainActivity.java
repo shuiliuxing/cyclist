@@ -143,14 +143,15 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         //底部导航栏
         bnbNavigation=(BottomNavigationBar)findViewById(R.id.bnb_navigation);
         bnbNavigation.setBackgroundStyle(BottomNavigationBar.BACKGROUND_STYLE_STATIC);
+        bnbNavigation.setMode(BottomNavigationBar.MODE_FIXED);
         bnbNavigation.addItem(new BottomNavigationItem(R.drawable.ic_home,"主页")
-                                .setActiveColorResource(R.color.colorBlack))
+                                .setActiveColorResource(R.color.colorBlue))
                      .addItem(new BottomNavigationItem(R.drawable.ic_cycle,"骑行")
-                                .setActiveColorResource(R.color.colorBlack))
+                                .setActiveColorResource(R.color.colorBlue))
                      .addItem(new BottomNavigationItem(R.drawable.ic_music,"音乐")
-                                .setActiveColorResource(R.color.colorBlack))
+                                .setActiveColorResource(R.color.colorBlue))
                      .addItem(new BottomNavigationItem(R.drawable.ic_news,"新闻")
-                             .setActiveColorResource(R.color.colorBlack))
+                             .setActiveColorResource(R.color.colorBlue))
                      .initialise();
         bnbNavigation.setTabSelectedListener(new BottomNavigationBar.OnTabSelectedListener() {
             @Override

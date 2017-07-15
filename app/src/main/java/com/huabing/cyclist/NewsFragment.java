@@ -115,7 +115,6 @@ public class NewsFragment extends Fragment{
                 String path="http://www.imbiker.cn"+element.attr("href");
                 nextList.add(path);
                 titleList.add(element.attr("title"));
-                Log.e("标题",element.attr("title"));
             }
             //图片
             Elements imageEles=doc.select("img[src$=c230x150.jpg]");
